@@ -27,18 +27,18 @@ def get_random_xkcd_comic():
     return get_xkcd_comic(random_comic_id)
 
 
-def save_xkcd_comic(comic_data, save_directory='comics_img'):
+def save_xkcd_comic(comic_data, directory_path='comics_img'):
     
     img_url = comic_data["img_url"]
     comic_id = comic_data["num"]
     file_extension = os.path.splitext(img_url)[-1]
     file_name = f"xkcd_{comic_id}{file_extension}"
-    path_save = os.path.join(save_directory, file_name)
+    comic_path = os.path.join(directory_path, file_name)
     
     response = requests.get(img_url)
     response.raise_for_status()
     
-    with open(path_save, "wb") as file:
+    with open(comic_path, "wb") as file:
         file.write(response.content)
     
-    return path_save
+    return comic_path
